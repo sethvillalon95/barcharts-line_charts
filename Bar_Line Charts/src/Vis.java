@@ -25,6 +25,8 @@ public class Vis extends JPanel {
     @Override
     public void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D)g1;
+        int h= getHeight();
+        int w = getWidth();
 
         //draw blank background
         g.setColor(Color.WHITE);
@@ -33,6 +35,9 @@ public class Vis extends JPanel {
         //render visualization
         g.setColor(Color.BLACK);
         g.drawString(textToDisplay, 10, 20);
+        
+        BarChart bc = new BarChart();
+        bc.draw(g1, w, h);
     }
 
 }
