@@ -16,7 +16,13 @@ public class BarChart {
 		barWidth = w/3; // change 3 with keys
 		barHeight = h*2/3; // change with height*ratio
 		
-		g.fillRect(10, 10, barWidth, barHeight);
+		g.fillRect(120, 10, barWidth, barHeight);
+		
+		
+	}
+	
+	public void draw(Graphics g) {
+
 		
 		
 	}

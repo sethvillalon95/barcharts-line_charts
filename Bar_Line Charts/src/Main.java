@@ -92,11 +92,13 @@ public class Main extends JFrame {
                     System.out.println(k + " : " + num);
                     //instatiate new Chart class 
                     
-                    values.add(num);
+//                    values.add(num);
                 }
-                double max = maxNumber(values);
                 
-                System.out.println("The max number is "+max);
+                mainPanel.setData(lauren);
+//                double max = maxNumber(values);
+//                
+//                System.out.println("The max number is "+max);
             }
         });
 
@@ -108,13 +110,13 @@ public class Main extends JFrame {
 
         return menuBar;
     }
-    
-    private double maxNumber(ArrayList<Double> myList) {
-    	double largest=0;
-    	Collections.sort(myList);
-    	largest =(double) myList.get(myList.size()-1);
-    	return largest;
-    }
+//    
+//    private double maxNumber(ArrayList<Double> myList) {
+//    	double largest=0;
+//    	Collections.sort(myList);
+//    	largest =(double) myList.get(myList.size()-1);
+//    	return largest;
+//    }
 
     public static void main(String[] args) {
 
