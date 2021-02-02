@@ -89,7 +89,9 @@ public class Vis extends JPanel {
         	
             String s = jerico;
             g.setColor(Color.black);
-            g.drawString(s, x+10, 500);
+            
+            int yLabel = (int)(h*.98);
+            g.drawString(s, x+10, yLabel);
 
             g.setColor(Color.BLUE);
 //            System.out.println("barWidth is: "+ barWidth +" BarHeight is: "+ barHeight);
