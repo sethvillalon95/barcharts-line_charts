@@ -95,7 +95,7 @@ public class Vis extends JPanel {
 //            System.out.println("barWidth is: "+ barWidth +" BarHeight is: "+ barHeight);
             
             // Draw the bars
-            y =h-(int)barHeight+(h*1/10);
+            y =(int) ((h*.95)-barHeight);
             g.fillRect(x, y, (int)barWidth,(int)barHeight);
 //            g.fillRect(x, 300, 156,120);
 
