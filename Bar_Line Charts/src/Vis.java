@@ -22,6 +22,7 @@ public class Vis extends JPanel {
         super();
         textToDisplay = "There's nothing to see here.";
         relativeData = new HashMap<>();
+        data = new HashMap<>();
     }
 
     public void setText(String t) {
@@ -46,10 +47,13 @@ public class Vis extends JPanel {
 	}
 	
 	public void clearMap() {
-		if(!data.isEmpty()) {
-			data.clear();
+		System.out.println("clearMap ran");
+		System.out.println("data.clear() is  "+ relativeData.isEmpty());
+		if(!relativeData.isEmpty() && !data.isEmpty()) {
 			relativeData.clear();
 		}
+		
+
 
 	}
     @Override
@@ -57,6 +61,17 @@ public class Vis extends JPanel {
         Graphics2D g = (Graphics2D)g1;
         int h= getHeight();
         int w = getWidth();
+        int x=0, y =0;
+        int howManyBars;
+        int xSpacing;
+    	double barWidth;
+    	double ratio;
+    	double barHeight;
+        int yLabel;
+        int xLine;
+        int yLine;
+        int scaler;
+        
 
         //draw blank background
         g.setColor(Color.WHITE);
@@ -69,42 +84,43 @@ public class Vis extends JPanel {
 //        BarChart bc = new BarChart();
 //        bc.draw(g1, w, h);
         
-        int x=0, y =0;
+
         
         // how many bars/data we need to draw
-        int howManyBars = relativeData.keySet().size();
+        howManyBars = relativeData.keySet().size();
         
         System.out.println("The number of bars is "+ howManyBars);
         
         // calculates the spacing
-        int xSpacing = w/ (howManyBars+1);
+        xSpacing = w/ (howManyBars+1);
         x = xSpacing-100;
-        
-//        double test = 150/max;
-//        g.fillRect(10, 300, 156,h*(int)test);
+
         
         
         // renders the bar 
         for (var jerico : relativeData.keySet()) {
 //           double barHeight = getWidth() * relativeData.get(jerico);
        	
-        	double barWidth= (w/howManyBars)/2;
-        	double ratio = relativeData.get(jerico);
-        	double barHeight = (int)(h*ratio*.90);
-          System.out.println("relativeData.get is "+relativeData.get(jerico));
+        	barWidth= (w/howManyBars)/2;
+        	ratio = relativeData.get(jerico);
+        	
+        	
+        	barHeight = (int)(h*ratio*.90);
+        	
+        	System.out.println("relativeData.get is "+relativeData.get(jerico));
 
         	System.out.println("The barHeight is "+ barHeight);
         	
             String s = jerico;
             g.setColor(Color.black);
             
-            int yLabel = (int)(h*.98);
+            yLabel = (int)(h*.98);
             g.drawString(s, x+10, yLabel);
             
             
             // draw the vertical line on the left
-            int xLine =(int)(w*.03);
-            int yLine =(int)(h*.96);
+            xLine =(int)(w*.03);
+            yLine =(int)(h*.96);
             // vertical line;
             g.drawLine(xLine, 0, xLine, yLine);
             

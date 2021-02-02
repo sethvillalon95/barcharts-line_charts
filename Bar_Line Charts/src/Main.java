@@ -94,13 +94,13 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Just clicked menu item 2");
-                
+            	mainPanel.clearMap();
                 var sqlData = performTwoColumnQuery("select count(*), major from cis2019 group by major");
-                for (var k : sqlData.keySet()) {
-                    double num = sqlData.get(k);
-                    System.out.println(k + " : " + num);
-
-                }
+//                for (var k : sqlData.keySet()) {
+//                    double num = sqlData.get(k);
+//                    System.out.println(k + " : " + num);
+//
+//                }
                 
                 mainPanel.setData(sqlData);
 
@@ -115,13 +115,6 @@ public class Main extends JFrame {
                 System.out.println("Just clicked menu item 3");
                 var sqlData = performTwoColumnQuery("select count(*), home from cis2019 group by home");
                 mainPanel.setData(sqlData);
-                for (var k : sqlData.keySet()) {
-                    double num = sqlData.get(k);
-                    System.out.println(k + " : " + num);
-                    System.out.println("**************************************");
-
-                }
-
             }
         });
         
