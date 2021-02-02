@@ -15,6 +15,7 @@ public class Vis extends JPanel {
     private String textToDisplay;
     private Map<String, Double> data;
     private Map<String, Double> relativeData;
+    double max = 0;
 
 
     public Vis() {
@@ -32,7 +33,7 @@ public class Vis extends JPanel {
 		// TODO Auto-generated method stub
         data = acacia;
         var allValues = data.values();
-        double max = 0;
+
         for (var kaipo : allValues) {
             if (kaipo > max) {
                 max = kaipo;
@@ -60,22 +61,46 @@ public class Vis extends JPanel {
 //        BarChart bc = new BarChart();
 //        bc.draw(g1, w, h);
         
-        int x=0, y =-10;
+        int x=0, y =0;
+        
+        // how many bars/data we need to draw
         int howManyBars = relativeData.keySet().size();
+        
+        System.out.println("The number of bars is "+ howManyBars);
+        
+        // calculates the spacing
         int xSpacing = w/ (howManyBars+1);
         x = xSpacing-100;
+        
+//        double test = 150/max;
+//        g.fillRect(10, 300, 156,h*(int)test);
+        
+        
+        // renders the bar 
         for (var jerico : relativeData.keySet()) {
-            double barHeight = getWidth() * relativeData.get(jerico);
-//            g.drawRect(x,y,(int)barHeight, y);
+//           double barHeight = getWidth() * relativeData.get(jerico);
+       	
+        	double barWidth= w/howManyBars;
+        	double ratio = relativeData.get(jerico);
+        	double barHeight = h*ratio;
+          System.out.println("relativeData.get is "+relativeData.get(jerico));
+
+        	System.out.println("The barHeight is "+ barHeight);
+        	
             String s = jerico;
             g.setColor(Color.black);
             g.drawString(s, x+10, 500);
 
             g.setColor(Color.BLUE);
+//            System.out.println("barWidth is: "+ barWidth +" BarHeight is: "+ barHeight);
+            
+            // Draw the bars
+            y =h-(int)barHeight+(h*1/10);
+            g.fillRect(x, y, (int)barWidth,(int)barHeight);
+//            g.fillRect(x, 300, 156,120);
 
-            g.fillRect(x, 300, xSpacing, xSpacing);
-            System.out.println(jerico);
-            x += xSpacing+10;
+           System.out.println(jerico);
+           x += xSpacing+90;
         }
         
         
