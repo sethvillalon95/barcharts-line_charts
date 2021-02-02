@@ -46,8 +46,11 @@ public class Vis extends JPanel {
 	}
 	
 	public void clearMap() {
-		data.clear();
-		relativeData.clear();
+		if(!data.isEmpty()) {
+			data.clear();
+			relativeData.clear();
+		}
+
 	}
     @Override
     public void paintComponent(Graphics g1) {
