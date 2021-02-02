@@ -67,8 +67,16 @@ public class Main extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem item1 = new JMenuItem("Item 1");
-        JMenu subMenu = new JMenu("Submenu");
-        JMenuItem item2 = new JMenuItem("Item 2");
+        JMenuItem item2 = new JMenuItem("# Students per Major");
+        JMenuItem item3 = new JMenuItem("# Students per area");
+        JMenuItem item4 = new JMenuItem("AVG GPA per Major");
+        JMenuItem item5 = new JMenuItem("AVG credits per year");
+        JMenuItem item6 = new JMenuItem("# Students per GPA (not working yet)");
+        JMenuItem item7 = new JMenuItem("Your choice");
+
+
+
+
 
         //setup action listeners
         item1.addActionListener(new ActionListener() {
@@ -80,32 +88,106 @@ public class Main extends JFrame {
                 mainPanel.setText("I found " + gilmo + " rows in the table.");
             }
         });
+        
+        //# Students per Major
         item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Just clicked menu item 2");
-                ArrayList<Double> values = new ArrayList<Double>(); 
                 
-                var lauren = performTwoColumnQuery("select count(*), home from cis2019 group by home");
-                for (var k : lauren.keySet()) {
-                    double num = lauren.get(k);
+                var sqlData = performTwoColumnQuery("select count(*), major from cis2019 group by major");
+                for (var k : sqlData.keySet()) {
+                    double num = sqlData.get(k);
                     System.out.println(k + " : " + num);
-                    //instatiate new Chart class 
-                    
-//                    values.add(num);
+
                 }
                 
-                mainPanel.setData(lauren);
-//                double max = maxNumber(values);
-//                
-//                System.out.println("The max number is "+max);
+                mainPanel.setData(sqlData);
+
             }
         });
+        
+        //# Students per area
+        item3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.clearMap();
+                System.out.println("Just clicked menu item 3");
+                var sqlData = performTwoColumnQuery("select count(*), home from cis2019 group by home");
+                mainPanel.setData(sqlData);
+                for (var k : sqlData.keySet()) {
+                    double num = sqlData.get(k);
+                    System.out.println(k + " : " + num);
+                    System.out.println("**************************************");
 
+                }
+
+            }
+        });
+        
+        
+        //AVG GPA per Major
+        item4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.clearMap();
+                System.out.println("Just clicked menu item 4");
+                var sqlData = performTwoColumnQuery("select avg(gpa), major from cis2019 group by major");
+                mainPanel.setData(sqlData);
+
+            }
+        });
+        
+        //AVG credits per year
+        item5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.clearMap();
+
+                System.out.println("Just clicked menu item 5");
+                var sqlData = performTwoColumnQuery("select avg(credits_attempted), gradyear from cis2019 group by gradyear");
+                mainPanel.setData(sqlData);
+
+            }
+        });
+        
+        
+        //# Students per GPA
+        item6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.clearMap();
+
+                System.out.println("Just clicked menu item 6");
+                var sqlData = performTwoColumnQuery("");
+                mainPanel.setData(sqlData);
+
+            }
+        });
+        
+        
+        //# Students per GPA
+        item7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.clearMap();
+
+                System.out.println("Just clicked menu item 7");
+                var sqlData = performTwoColumnQuery("");
+                mainPanel.setData(sqlData);
+
+            }
+        });
         //now hook them all together
-        subMenu.add(item2);
         fileMenu.add(item1);
-        fileMenu.add(subMenu);
+        fileMenu.add(item2);
+        fileMenu.add(item3);
+        fileMenu.add(item4);
+        fileMenu.add(item5);
+        fileMenu.add(item6);
+        fileMenu.add(item7);
+
+
         menuBar.add(fileMenu);
 
         return menuBar;

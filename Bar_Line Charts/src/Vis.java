@@ -44,6 +44,11 @@ public class Vis extends JPanel {
         }
         repaint();	
 	}
+	
+	public void clearMap() {
+		data.clear();
+		relativeData.clear();
+	}
     @Override
     public void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D)g1;
@@ -80,9 +85,9 @@ public class Vis extends JPanel {
         for (var jerico : relativeData.keySet()) {
 //           double barHeight = getWidth() * relativeData.get(jerico);
        	
-        	double barWidth= w/howManyBars;
+        	double barWidth= (w/howManyBars)/2;
         	double ratio = relativeData.get(jerico);
-        	double barHeight = h*ratio;
+        	double barHeight = (int)(h*ratio*.90);
           System.out.println("relativeData.get is "+relativeData.get(jerico));
 
         	System.out.println("The barHeight is "+ barHeight);
@@ -92,6 +97,23 @@ public class Vis extends JPanel {
             
             int yLabel = (int)(h*.98);
             g.drawString(s, x+10, yLabel);
+            
+            
+            // draw the vertical line on the left
+            int xLine =(int)(w*.03);
+            int yLine =(int)(h*.96);
+            // vertical line;
+            g.drawLine(xLine, 0, xLine, yLine);
+            
+            //horizontal line; 
+            g.drawLine(xLine,yLine,w,yLine);
+            
+            
+            
+            
+            
+            
+            
 
             g.setColor(Color.BLUE);
 //            System.out.println("barWidth is: "+ barWidth +" BarHeight is: "+ barHeight);
@@ -102,7 +124,7 @@ public class Vis extends JPanel {
 //            g.fillRect(x, 300, 156,120);
 
            System.out.println(jerico);
-           x += xSpacing+90;
+           x += xSpacing;
         }
         
         
