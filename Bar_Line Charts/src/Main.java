@@ -124,9 +124,14 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	mainPanel.clearMap();
-                System.out.println("Just clicked menu item 4");
+                System.out.println("*******************Just clicked menu item 4***************");
                 var sqlData = performTwoColumnQuery("select avg(gpa), major from cis2019 group by major");
                 mainPanel.setData(sqlData);
+                for (var k : sqlData.keySet()) {
+                  double num = sqlData.get(k);
+                  System.out.println(k + " : " + num);
+
+              }
 
             }
         });

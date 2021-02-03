@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JPanel;
+import javax.swing.SpinnerNumberModel;
 
 
 public class Vis extends JPanel {
@@ -15,7 +16,8 @@ public class Vis extends JPanel {
     private String textToDisplay;
     private Map<String, Double> data;
     private Map<String, Double> relativeData;
-    double max = 0;
+    double max_num;
+    SpinnerNumberModel yMax;
 
 
     public Vis() {
@@ -23,6 +25,8 @@ public class Vis extends JPanel {
         textToDisplay = "There's nothing to see here.";
         relativeData = new HashMap<>();
         data = new HashMap<>();
+        
+        yMax = new SpinnerNumberModel();
     }
 
     public void setText(String t) {
@@ -34,10 +38,12 @@ public class Vis extends JPanel {
 		// TODO Auto-generated method stub
         data = acacia;
         var allValues = data.values();
-
+        double max=0;
+        max_num=0;
         for (var kaipo : allValues) {
             if (kaipo > max) {
                 max = kaipo;
+                max_num=kaipo;
             }
         }
         for (var key : data.keySet()) {
@@ -47,8 +53,8 @@ public class Vis extends JPanel {
 	}
 	
 	public void clearMap() {
-		System.out.println("clearMap ran");
-		System.out.println("data.clear() is  "+ relativeData.isEmpty());
+//		System.out.println("clearMap ran");
+//		System.out.println("data.clear() is  "+ relativeData.isEmpty());
 		if(!relativeData.isEmpty() && !data.isEmpty()) {
 			relativeData.clear();
 		}
@@ -89,7 +95,7 @@ public class Vis extends JPanel {
         // how many bars/data we need to draw
         howManyBars = relativeData.keySet().size();
         
-        System.out.println("The number of bars is "+ howManyBars);
+//        System.out.println("The number of bars is "+ howManyBars);
         
         // calculates the spacing
         xSpacing = w/ (howManyBars+1);
@@ -139,14 +145,20 @@ public class Vis extends JPanel {
             
             // Draw the bars
             y =(int) ((h*.95)-barHeight);
+            String yValue = Double.toString(ratio*max_num);
+
+            g.drawString(yValue, xLine,y);
+
             g.fillRect(x, y, (int)barWidth,(int)barHeight);
+
+            
 //            g.fillRect(x, 300, 156,120);
 
-           System.out.println(jerico);
            x += xSpacing;
         }
         
-        
+        System.out.println("*******************End *******************");
+
        
    
     }
