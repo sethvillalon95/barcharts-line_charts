@@ -17,7 +17,7 @@ public class Vis extends JPanel {
     private Map<String, Double> data;
     private Map<String, Double> relativeData;
     double max_num;
-    SpinnerNumberModel yMax;
+    boolean isBar = true;
 
 
     public Vis() {
@@ -26,7 +26,6 @@ public class Vis extends JPanel {
         relativeData = new HashMap<>();
         data = new HashMap<>();
         
-        yMax = new SpinnerNumberModel();
     }
 
     public void setText(String t) {
@@ -34,16 +33,16 @@ public class Vis extends JPanel {
         repaint();
     }
 
-	public void setData(Map<String, Double> acacia) {
+	public void setData(Map<String, Double> inData) {
 		// TODO Auto-generated method stub
-        data = acacia;
+        data = inData;
         var allValues = data.values();
         double max=0;
         max_num=0;
-        for (var kaipo : allValues) {
-            if (kaipo > max) {
-                max = kaipo;
-                max_num=kaipo;
+        for (var currObj : allValues) {
+            if (currObj > max) {
+                max = currObj;
+                max_num=currObj;
             }
         }
         for (var key : data.keySet()) {
@@ -69,14 +68,12 @@ public class Vis extends JPanel {
         int w = getWidth();
         int x=0, y =0;
         int howManyBars;
-        int xSpacing;
     	double barWidth;
     	double ratio;
     	double barHeight;
         int yLabel;
         int xLine;
         int yLine;
-        int scaler;
         
 
         //draw blank background
@@ -94,15 +91,17 @@ public class Vis extends JPanel {
         
         // how many bars/data we need to draw
         howManyBars = relativeData.keySet().size();
+        int poly_X[] = new int[howManyBars];
+        int poly_Y[] = new int[howManyBars];
+
         
 //        System.out.println("The number of bars is "+ howManyBars);
         
         // calculates the spacing
-        xSpacing = w/ (howManyBars+1);
-        x = xSpacing-100;
+        x = (int)(w*.1);
 
         
-        
+        int i = 0;
         // renders the bar 
         for (var jerico : relativeData.keySet()) {
 //           double barHeight = getWidth() * relativeData.get(jerico);
@@ -125,7 +124,7 @@ public class Vis extends JPanel {
             
             
             // draw the vertical line on the left
-            xLine =(int)(w*.03);
+            xLine =(int)(w*.05);
             yLine =(int)(h*.96);
             // vertical line;
             g.drawLine(xLine, 0, xLine, yLine);
@@ -145,16 +144,33 @@ public class Vis extends JPanel {
             
             // Draw the bars
             y =(int) ((h*.95)-barHeight);
-            String yValue = Double.toString(ratio*max_num);
-
-            g.drawString(yValue, xLine,y);
-
-            g.fillRect(x, y, (int)barWidth,(int)barHeight);
-
             
-//            g.fillRect(x, 300, 156,120);
+            
+            
+            String yValue = String.format("%.2f",ratio*max_num);
+            
+            
+            // this is for the yAxis
+            xLine =(int)(w*.001);
+            g.drawString(yValue, xLine,y);
+            
+            if(isBar) {
+                g.fillRect(x, y, (int)barWidth,(int)barHeight);
 
-           x += xSpacing;
+            }else {
+            	g.fillOval(x-10, y-10, 20, 20);
+            }
+            // start collecting the poly_X and poly_Y values;
+            poly_X[i] = x;
+            poly_Y[i] = y;
+           
+            
+           x+=barWidth+10;
+           i++;
+        }
+        
+        if(!isBar) {
+        	g.drawPolyline(poly_X, poly_Y, howManyBars);
         }
         
         System.out.println("*******************End *******************");

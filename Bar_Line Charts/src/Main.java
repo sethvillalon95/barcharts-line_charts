@@ -25,7 +25,7 @@ public class Main extends JFrame {
 
         setSize(800,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Put the title of your program here");
+        setTitle("Seth's Data Visualization");
         setVisible(true);
     }
 
@@ -73,6 +73,11 @@ public class Main extends JFrame {
         JMenuItem item5 = new JMenuItem("AVG credits per year");
         JMenuItem item6 = new JMenuItem("# Students per GPA (not working yet)");
         JMenuItem item7 = new JMenuItem("Your choice");
+        
+        JMenu chartMenu = new JMenu("Chart Type");
+        JMenuItem bar = new JMenuItem("Bar Chart");
+        JMenuItem lineChart = new JMenuItem("Line Chart");
+
 
 
 
@@ -176,6 +181,23 @@ public class Main extends JFrame {
 
             }
         });
+        
+        // toggle to bar charts 
+        bar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.isBar=true;
+            	repaint();
+            }
+        });
+        
+        lineChart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	mainPanel.isBar=false;
+            	repaint();
+            }
+        });
         //now hook them all together
         fileMenu.add(item1);
         fileMenu.add(item2);
@@ -184,9 +206,13 @@ public class Main extends JFrame {
         fileMenu.add(item5);
         fileMenu.add(item6);
         fileMenu.add(item7);
+        
+        chartMenu.add(bar);
+        chartMenu.add(lineChart);
 
 
         menuBar.add(fileMenu);
+        menuBar.add(chartMenu);
 
         return menuBar;
     }
