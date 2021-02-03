@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Feb 02 22:38:16 HST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0177-670a-cb26-00000f108850 
+Tue Feb 02 22:45:15 HST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0177-6711-2f8f-00000f0a5830 
 on database directory C:\Users\sethv\OneDrive\Desktop\CS 490R Data Visualization\barcharts-line_charts\Bar_Line Charts\pollster with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@443b7951 
 Loaded from file:/C:/Apache/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
