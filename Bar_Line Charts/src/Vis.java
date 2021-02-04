@@ -73,7 +73,8 @@ public class Vis extends JPanel {
     	double barHeight;
         int yLabel;
         int xLine;
-        int yLine;
+        int yLine=0;
+        int largestHeight =0;
         
 
         //draw blank background
@@ -112,6 +113,7 @@ public class Vis extends JPanel {
         	
         	barHeight = (int)(h*ratio*.90);
         	
+        	
         	System.out.println("relativeData.get is "+relativeData.get(jerico));
 
         	System.out.println("The barHeight is "+ barHeight);
@@ -120,7 +122,7 @@ public class Vis extends JPanel {
             g.setColor(Color.black);
             
             yLabel = (int)(h*.98);
-            g.drawString(s, x+10, yLabel);
+            g.drawString(s, x+15, yLabel);
             
             
             // draw the vertical line on the left
@@ -144,15 +146,18 @@ public class Vis extends JPanel {
             
             // Draw the bars
             y =(int) ((h*.95)-barHeight);
+            System.out.println("the y pos is "+ y);
+            if(ratio ==1) {
+            	largestHeight = y;
+            }
+
             
             
             
-            String yValue = String.format("%.2f",ratio*max_num);
+//           
             
             
             // this is for the yAxis
-            xLine =(int)(w*.001);
-            g.drawString(yValue, xLine,y);
             
             if(isBar) {
                 g.fillRect(x, y, (int)barWidth,(int)barHeight);
@@ -168,6 +173,18 @@ public class Vis extends JPanel {
            x+=barWidth+10;
            i++;
         }
+        // draw the yAxis Values ;
+        xLine =(int)(w*.001);
+        double multiplier =1;
+        double yMultiplier =1;
+        for(int j=0; j<4;j++) {
+        	 String yValue = String.format("%.2f",max_num*multiplier);
+             g.drawString(yValue, xLine,(int)(largestHeight*yMultiplier));
+             multiplier-=.25;    
+             yMultiplier+=5;
+        }
+        g.drawString("0.00", xLine, yLine);
+        
         
         if(!isBar) {
         	g.drawPolyline(poly_X, poly_Y, howManyBars);

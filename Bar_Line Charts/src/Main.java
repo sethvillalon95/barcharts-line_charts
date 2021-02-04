@@ -32,7 +32,7 @@ public class Main extends JFrame {
     //select count(*) from derbyDB
     private int runSimpleCountQuery(String q) {
         try {
-            Connection c = DriverManager.getConnection("jdbc:derby:pollster");
+            Connection c = DriverManager.getConnection("jdbc:derby:sethFinal");
             Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(q);
             rs.next();
@@ -40,6 +40,13 @@ public class Main extends JFrame {
             return count;
         } catch (SQLException e) {
             System.out.println("could not connect to Derby!");
+            System.out.println("could not connect to Derby!");
+            System.out.println(e);
+            System.err.println("  Error Code: " + e.getErrorCode());
+            System.err.println("  Message:    " + e.getMessage());
+            System.err.println("  Message:    " + e.getNextException());
+
+            
             return 0;
         }
     }
@@ -47,7 +54,7 @@ public class Main extends JFrame {
     private Map<String, Double> performTwoColumnQuery(String q) {
         Map<String, Double> results = new HashMap<>();
         try {
-            Connection c = DriverManager.getConnection("jdbc:derby:pollster");
+            Connection c = DriverManager.getConnection("jdbc:derby:sethFinal");
             Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(q);
             while (rs.next()) {
@@ -57,7 +64,12 @@ public class Main extends JFrame {
             }
         } catch (SQLException e) {
         	
-            System.out.println("could not connect to Derby!");
+            System.out.println("could not connect to Derby in the method!");
+            System.out.println(e);
+            System.err.println("  Error Code: " + e.getErrorCode());
+            System.err.println("  Message:    " + e.getMessage());
+            System.err.println("  Message:    " + e.getNextException());
+
         }
         return results;
     }
@@ -162,7 +174,7 @@ public class Main extends JFrame {
             	mainPanel.clearMap();
 
                 System.out.println("Just clicked menu item 6");
-                var sqlData = performTwoColumnQuery("");
+                var sqlData = performTwoColumnQuery("select count(*), gpa_bins from cis2019 group by gpa_bins");
                 mainPanel.setData(sqlData);
 
             }
@@ -176,7 +188,7 @@ public class Main extends JFrame {
             	mainPanel.clearMap();
 
                 System.out.println("Just clicked menu item 7");
-                var sqlData = performTwoColumnQuery("");
+                var sqlData = performTwoColumnQuery("select avg(credits_attempted), home from cis2019 group by home");
                 mainPanel.setData(sqlData);
 
             }
